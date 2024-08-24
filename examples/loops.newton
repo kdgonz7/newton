@@ -1,0 +1,26 @@
+; newton file
+;
+; this defines a loop, that prints every word given
+
+include! "core/internal"
+
+new print_words {
+    ; set its conditions
+    ; for this example, we can be empty.
+    ; but note: this example can be dangerous,
+    ; as it overrides everything
+    conditions {
+        any
+        %override
+    }
+
+    ; we iterate over the arguments and print each one
+    logic {
+        collect as $
+
+        ; for every var in our arguments array
+        for $ as var {
+            ::stdout write_newline var
+        }
+    }
+}

@@ -1,0 +1,41 @@
+; newton file
+; to define a new language construct,
+; use 'new'
+
+; you want to include the .newton core library
+; with the core library you can access stdout, stdin, etc.
+include! "core/internal"
+
+; in .newton, this is already in the standard library.
+; this defines symbols that should be flagged as errors, if they
+; are not otherwise overridden.
+#bad_symbol(!)
+#bad_symbol(@)
+#bad_symbol(#)
+#bad_symbol(^)
+#bad_symbol(&)
+#bad_symbol(*)
+
+; # Print Statement
+; 
+; A print statement has `print <ARGS>`
+;
+; Print statements are good for showing output to the current console the program is running on.
+;
+new statement_print {
+    conditions {
+        ; there is two ways you can do this:
+        ; one is by using 'start with', which basically
+        ; tells .newton to detect statements that start with the given argument
+        ; another way is to use `expect ident`, which
+        ; runs a similar condition, and can ONLY operate on an identifier
+
+        expect ident 'print'
+    }
+
+    ; we can now define our logic, this will be ran every time our statement is detected.
+    logic {
+        collect as $
+        ::stdout write $::1
+    }
+}
